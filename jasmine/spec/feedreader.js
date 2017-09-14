@@ -25,22 +25,22 @@ $(function() {
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
-        it('url is not empty', function () {
+        function section (name) {
             for (var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toEqual("");
+                expect(allFeeds[i][name]).toBeDefined();
+                expect(allFeeds[i][name]).not.toEqual("");
             }
-        })
+        }
+        it('url is not empty', function () {
+            section('url');
+        });
 
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
          */
         it('name is not empty', function () {
-            for (var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toEqual("");
-            }
-        })
+            section('name');
+        });
 
     });
 
@@ -60,14 +60,18 @@ $(function() {
 
     describe('The menu', function () {
         //监视toogleClass部分不理解
-        beforeEach(function () {
-            spyOn(menuIcon.on('click'));
-        });
        it('is hidden', function () {
            expect(document.getElementsByTagName('body')[0].className).toBe("menu-hidden");
        });
+       var clickMenuIcon = function () {
+           $('.menu-icon-link').click();
+       };
        it('click to be viewed', function () {
-
+           clickMenuIcon();
+           expect(document.getElementsByTagName('body')[0].className).toBe('');
+           clickMenuIcon();
+           expect(document.getElementsByTagName('body')[0].className).toBe('menu-hidden');
+           //能够再优化吗？
        })
     });
 
