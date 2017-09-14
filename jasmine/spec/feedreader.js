@@ -84,11 +84,38 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
+    describe('Initial Entries', function () {
 
+        beforeEach(function( done ) {
+            originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+            loadFeed(0, done);
+        });
+        it('loadFeed is working', function (done) {
+            expect($('.feed .entry').length).not.toBe(0);
+            console.log($('.feed .entry').length)
+            done();
+        });
+        afterEach(function() {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+        });
+    })
     /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
 
         /* TODO:
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
+    describe('New Feed Selection', function () {
+        var oldHtml;
+        beforeEach(function (done) {
+            loadFeed(0,function () {
+                oldHtml = $('.feed').html();
+                loadFeed(1,done);
+            });
+        });
+        it('can be loaded correctly',function () {
+            expect($('.feed').html()).not.toEqual(oldHtml);
+        });
+    })
 }());
