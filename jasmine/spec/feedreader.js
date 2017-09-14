@@ -25,11 +25,9 @@ $(function() {
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
-        it('is not empty', function () {
+        it('url is not empty', function () {
             for (var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].name).not.toEqual("");
                 expect(allFeeds[i].url).not.toEqual("");
             }
         })
@@ -37,6 +35,13 @@ $(function() {
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
          */
+        it('name is not empty', function () {
+            for (var i = 0; i < allFeeds.length; i++){
+                expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name).not.toEqual("");
+            }
+        })
+
     });
 
 
@@ -52,6 +57,19 @@ $(function() {
           * 测试应该包含两个 expectation ： 党点击图标的时候菜单是否显示，
           * 再次点击的时候是否隐藏。
           */
+
+    describe('The menu', function () {
+        //监视toogleClass部分不理解
+        beforeEach(function () {
+            spyOn(menuIcon.on('click'));
+        });
+       it('is hidden', function () {
+           expect(document.getElementsByTagName('body')[0].className).toBe("menu-hidden");
+       });
+       it('click to be viewed', function () {
+
+       })
+    });
 
     /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
 
