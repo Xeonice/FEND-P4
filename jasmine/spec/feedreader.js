@@ -61,16 +61,16 @@ $(function() {
     describe('The menu', function () {
         //监视toogleClass部分不理解
        it('is hidden', function () {
-           expect(document.getElementsByTagName('body')[0].className).toBe("menu-hidden");
+           expect($('body').hasClass('menu-hidden')).toBeTruthy();
        });
        var clickMenuIcon = function () {
            $('.menu-icon-link').click();
        };
        it('click to be viewed', function () {
            clickMenuIcon();
-           expect(document.getElementsByTagName('body')[0].className).toBe('');
+           expect($('body').hasClass('menu-hidden')).toBeFalsy();
            clickMenuIcon();
-           expect(document.getElementsByTagName('body')[0].className).toBe('menu-hidden');
+           expect($('body').hasClass('menu-hidden')).toBeTruthy();
            //能够再优化吗？
        })
     });
@@ -91,10 +91,8 @@ $(function() {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
             loadFeed(0, done);
         });
-        it('loadFeed is working', function (done) {
+        it('loadFeed is working', function () {
             expect($('.feed .entry').length).not.toBe(0);
-            console.log($('.feed .entry').length)
-            done();
         });
         afterEach(function() {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
